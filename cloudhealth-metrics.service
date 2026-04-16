@@ -1,0 +1,20 @@
+[Unit]
+Description=CloudHealth Local Metrics Agent
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ec2-user
+WorkingDirectory=/home/ec2-user
+Environment="BACKEND_URL=http://localhost:8000"
+Environment="TARGET_INSTANCE_ID="
+Environment="METRICS_INTERVAL=60"
+ExecStart=/usr/bin/python3 /home/ec2-user/local_metrics_agent.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

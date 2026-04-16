@@ -1,0 +1,21 @@
+[Unit]
+Description=CloudHealth Local Metrics Agent
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/ubuntu
+ExecStart=/usr/bin/python3 /home/ubuntu/local_metrics_agent.py --daemon
+Restart=always
+RestartSec=10
+
+Environment="INSTANCE_ID=i-07aafc7c37daf9563"
+Environment="BACKEND_URL=http://localhost:8000"
+Environment="METRICS_INTERVAL=60"
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
